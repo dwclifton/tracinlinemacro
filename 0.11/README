@@ -1,0 +1,65 @@
+= !InlineMacro =
+
+== Description ==
+
+The !InlineMacro package returns raw, inline XHTML markup that has been validated
+and sanitized.
+
+== Validation ==
+
+Markup that doesn't follow these requirements will be rejected with an error message:
+
+ * Elements must be [http://en.wikipedia.org/wiki/Well-formed_element well-formed].
+ * Tags and attribute identifiers must be in lowercase, attribute values are required and must be enclosed in quotes.
+ * Empty elements must be self-closing with a space before the forward slash, e.g. <img ... />.
+
+== Sanitization ==
+
+Dangerous constructs such as <script> elements will be removed.
+
+== Use Cases ==
+
+`Inline` is useful for creating "phrase" elements not supported by WikiFormatting, or
+for including attributes such as titles. The `#!html` [WikiProcessors WikiProcessor]
+works well for creating larger chunks of markup, and in particular block-level elements
+such as an <address> that are also not supported (a [http://microformats.org/ Microformat]
+is an excellent example). However, `Inline` is designed to be embedded directly in another
+construct, typically a paragraph of text.
+
+== Installation ==
+
+Download the attached [zipfile], unpack to a temporary location, visit the `0.11` directory
+and run:
+
+{{{
+python setup.py bdist_egg
+cp dist/*.egg /trac/env/Project/plugins
+}}}
+
+== Configuration ==
+
+Enable the macro in:
+
+/trac/env/Project/conf/trac.ini:
+
+{{{
+[components]
+inline.* = enabled
+}}}
+
+You may have to restart your Web server.
+
+== Examples ==
+
+{{{
+...is now a [[Inline(<acronym title="Python Enhancement Proposal">PEP</acronym>)]].
+Visit [[Inline(<a href="..." title="My Link">my link</a>)]].
+}}}
+
+== Source ==
+
+ * Browse the source at: [http://github.com/dwclifton/tracinlinemacro/tree/master GitHub].
+ * Public clone URL:
+{{{
+git clone git://github.com/dwclifton/tracinlinemacro.git
+}}}
